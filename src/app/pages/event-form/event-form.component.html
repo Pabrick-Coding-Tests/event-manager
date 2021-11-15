@@ -1,1 +1,9 @@
 <p>event-form works!</p>
+
+<div *ngIf="eventId$ | async as eventId">
+  {{ eventId }}
+</div>
+
+<button (click)="back()">
+  back
+</button>
