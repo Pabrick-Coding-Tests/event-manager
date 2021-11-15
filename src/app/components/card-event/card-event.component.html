@@ -1,1 +1,15 @@
-<p>card-event works!</p>
+<details class="card-event">
+  <summary class="card__title">{{ item?.title }}</summary>
+  <section class="card__body">
+    <p>
+      {{ item?.text }}
+    </p>
+    <p>
+      {{ item?.date }}
+    </p>
+    <div class="card__footer">
+      <button (click)="updateItem()">✏️</button>
+      <button (click)="deleteItem()">❌</button>
+    </div>
+  </section>
+</details>
