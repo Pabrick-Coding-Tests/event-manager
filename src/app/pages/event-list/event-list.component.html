@@ -1,1 +1,31 @@
-<p>event-list works!</p>
+<section>
+  <h2>📒 Event list</h2>
+
+  <button (click)="createNewEvent()">
+    Create new event
+  </button>
+
+  <h3>Upcoming events</h3>
+  <ul>
+    <li *ngFor="let event of upcomingEventList$ | async">
+      <card-event [item]="event"
+                  [opened]="event.id === (eventIdSelected$ | async)"
+                  (updateEmt)="onUpdateEvent(event)"
+                  (deleteEmt)="onDeleteEvent(event)">
+      </card-event>
+    </li>
+  </ul>
+
+  <hr>
+
+  <h3>Past events</h3>
+  <ul>
+    <li *ngFor="let event of pastEventList$ | async">
+      <card-event [item]="event"
+                  [opened]="event.id === (eventIdSelected$ | async)"
+                  (updateEmt)="onUpdateEvent(event)"
+                  (deleteEmt)="onDeleteEvent(event)">
+      </card-event>
+    </li>
+  </ul>
+</section>
