@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { map, Observable } from "rxjs";
-import { EventStorageService } from "../../services/storage/event-storage.service";
+import { StorageService } from "../../services/storage/storage.service";
 import { EventItem } from "../../models/event-item.interface";
+import { EventService } from "../../services/event/event.service";
 
 @Component({
   selector: "event-list",
@@ -11,28 +12,21 @@ import { EventItem } from "../../models/event-item.interface";
 })
 export class EventListComponent implements OnInit {
 
-  public eventIdSelected$: Observable<string | null>;
-  public upcomingEventList$: Observable<EventItem[] | null>;
-  public pastEventList$: Observable<EventItem[] | null>;
+  public eventIdSelected$: Observable<string>;
+  public upcomingEventList$: Observable<EventItem[]>;
+  public pastEventList$: Observable<EventItem[]>;
 
   constructor(
     public readonly route: ActivatedRoute,
     public readonly router: Router,
-    private readonly _eventStorageSrv: EventStorageService
+    private readonly _eventSrv: EventService,
+    private readonly _storageSrv: StorageService
   ) {
+    this.upcomingEventList$ = this._eventSrv.upcomingEventList$;
+    this.pastEventList$ = this._eventSrv.pastEventList$;
     this.eventIdSelected$ = this.route.queryParams.pipe(
       map((params: Params) => params["id"])
     );
-    this.upcomingEventList$ = this._eventStorageSrv.getEventList$().pipe(
-      map((eventList: EventItem[]) => {
-        return eventList; // Add filter logic here
-      })
-    );
-    this.pastEventList$ = this._eventStorageSrv.getEventList$().pipe(
-      map((eventList: EventItem[]) => {
-        return eventList; // Add filter logic here
-      })
-    )
   }
 
   ngOnInit(): void {}
@@ -48,6 +42,7 @@ export class EventListComponent implements OnInit {
 
   public onDeleteEvent(event: EventItem): void {
     console.log("onDeleteEvent", event);
+    this._storageSrv.remove(event);
   }
 
 }

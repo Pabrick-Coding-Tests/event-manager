@@ -1,31 +1,36 @@
-<section>
-  <h2>📒 Event list</h2>
+<section class="page-list">
+  <h2 class="page-list__title">📒 Event list</h2>
 
-  <button (click)="createNewEvent()">
-    Create new event
+  <button class="page-list__create"
+          (click)="createNewEvent()">
+    ✨ Create new event
   </button>
 
-  <h3>Upcoming events</h3>
-  <ul>
-    <li *ngFor="let event of upcomingEventList$ | async">
-      <card-event [item]="event"
-                  [opened]="event.id === (eventIdSelected$ | async)"
-                  (updateEmt)="onUpdateEvent(event)"
-                  (deleteEmt)="onDeleteEvent(event)">
-      </card-event>
-    </li>
-  </ul>
+  <section class="upcoming-events">
+    <h3 class="upcoming-events__title">Upcoming events</h3>
+    <ul class="upcoming-events__list">
+      <li *ngFor="let event of upcomingEventList$ | async">
+        <card-event [item]="event"
+                    [opened]="event.id === (eventIdSelected$ | async)"
+                    (updateEmt)="onUpdateEvent(event)"
+                    (deleteEmt)="onDeleteEvent(event)">
+        </card-event>
+      </li>
+    </ul>
+  </section>
 
   <hr>
 
-  <h3>Past events</h3>
-  <ul>
-    <li *ngFor="let event of pastEventList$ | async">
-      <card-event [item]="event"
-                  [opened]="event.id === (eventIdSelected$ | async)"
-                  (updateEmt)="onUpdateEvent(event)"
-                  (deleteEmt)="onDeleteEvent(event)">
-      </card-event>
-    </li>
-  </ul>
+  <section class="past-events">
+    <h3 class="past-events__title">Past events</h3>
+    <ul class="past-events__list">
+      <li *ngFor="let event of pastEventList$ | async">
+        <card-event [item]="event"
+                    [opened]="event.id === (eventIdSelected$ | async)"
+                    (updateEmt)="onUpdateEvent(event)"
+                    (deleteEmt)="onDeleteEvent(event)">
+        </card-event>
+      </li>
+    </ul>
+  </section>
 </section>

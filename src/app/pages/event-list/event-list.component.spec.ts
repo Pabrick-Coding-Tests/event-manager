@@ -26,6 +26,6 @@ describe("EventListComponent", () => {
 
   it("should render title", () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector("p")?.textContent).toContain("event-list works!");
+    expect(compiled.querySelector("h2")?.textContent).toContain("📒 Event list");
   });
 });
