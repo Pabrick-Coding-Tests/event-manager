@@ -1,15 +1,16 @@
-<details class="card-event">
-  <summary class="card__title">{{ item?.title }}</summary>
+<details class="card" [open]="opened">
+  <summary class="card__title">
+    <div class="title__month">{{ month }}</div>
+    <div class="title__day">{{ day }}</div>
+    <div class="title__text"> {{ item.title }}</div>
+  </summary>
   <section class="card__body">
     <p>
-      {{ item?.text }}
-    </p>
-    <p>
-      {{ item?.date }}
+      {{ item.description }}
     </p>
     <div class="card__footer">
-      <button (click)="updateItem()">✏️</button>
-      <button (click)="deleteItem()">❌</button>
+      <button (click)="updateItem()">✏️ Update event</button>
+      <button (click)="deleteItem()">❌ Delete event</button>
     </div>
   </section>
 </details>
