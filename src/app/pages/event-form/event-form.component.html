@@ -1,9 +1,42 @@
-<p>event-form works!</p>
+<section class="page-form">
+  <h2 class="page-form__title">
+    <ng-container [ngTemplateOutlet]="(eventSelected$ | async) ? titleUpdate : titleCreate">
+      <ng-template #titleUpdate>✏️ Update event</ng-template>
+      <ng-template #titleCreate>✨ Create new event</ng-template>
+    </ng-container>
+  </h2>
 
-<div *ngIf="eventId$ | async as eventId">
-  {{ eventId }}
-</div>
+  <section class="page-form__body">
+    <form *ngIf="eventForm$ | async as eventForm"
+          class="event-form"
+          novalidate
+          [formGroup]="eventForm"
+          (ngSubmit)="onCreate(eventForm)">
+          <div class="event-form__row">
+            <label>Title:</label>
+            <input formControlName="title"
+                   placeholder="">
+          </div>
+          <div class="event-form__row">
+            <label>Description:</label>
+            <input formControlName="description"
+                   placeholder="">
+          </div>
+          <div class="event-form__row">
+            <label>Date:</label>
+            <div class="date-picker">
+              <input formControlName="day" placeholder="dd" maxlength="2" size="2">
+              <input formControlName="month" placeholder="mm" maxlength="2" size="2">
+              <input formControlName="year" placeholder="yyyy" maxlength="4" size="4">
+            </div>
+          </div>
+      <button type="submit">Create</button>
+    </form>
+  </section>
 
-<button (click)="back()">
-  back
-</button>
+  <section class="page-form__footer">
+    <button (click)="back()">
+      📒 Back to list
+    </button>
+  </section>
+</section>

@@ -26,6 +26,6 @@ describe("EventFormComponent", () => {
 
   it("should render title", () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector("p")?.textContent).toContain("event-form works!");
+    expect(compiled.querySelector("h2")?.textContent).toContain("✨ Create new event");
   });
 });
