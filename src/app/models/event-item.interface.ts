@@ -1,7 +1,7 @@
 export interface EventItem {
   id: string,
   title: string,
-  text: string,
+  description: string,
   date: string,
   weatherIcon: string
 }
