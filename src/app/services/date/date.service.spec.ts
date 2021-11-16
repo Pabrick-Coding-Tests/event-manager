@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EventStorageService } from './event-storage.service';
+import { DateService } from './date.service';
 
-describe('EventStorageService', () => {
-  let service: EventStorageService;
+describe('DateService', () => {
+  let service: DateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EventStorageService);
+    service = TestBed.inject(DateService);
   });
 
   it('should be created', () => {

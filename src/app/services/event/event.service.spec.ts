@@ -1,13 +1,13 @@
 import { TestBed } from "@angular/core/testing";
 
-import { WeatherApiService } from "./weather-api.service";
+import { EventService } from "./event.service";
 
-describe("WeatherApiService", () => {
-  let service: WeatherApiService;
+describe("EventsService", () => {
+  let service: EventService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(WeatherApiService);
+    service = TestBed.inject(EventService);
   });
 
   it("should be created", () => {
