@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { EventListComponent } from "./pages/event-list/event-list.component";
 import { EventFormComponent } from "./pages/event-form/event-form.component";
 import { CardEventComponent } from "./components/card-event/card-event.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CardEventComponent } from "./components/card-event/card-event.component
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
   ],

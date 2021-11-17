@@ -15,23 +15,29 @@ export class StorageService {
   constructor() {
     this.listSubject = new BehaviorSubject<EventItem[]>([]);
     this.list$ = this.listSubject.asObservable();
-
-    const initialList = this.retrieveList();
-    this.saveList(initialList);
+    this.saveList(this.getLocalList());
   }
 
   public add(event: EventItem) {
-    this.list$.pipe(take(1)).subscribe((list: EventItem[])=> {
-      list.push(event);
-      this.saveList(list);
+    const list = this.listSubject.value;
+    list.push(event);
+    this.saveList(list);
+  }
+
+  public update(event: EventItem) {
+    const newList = this.listSubject.value.map((item: EventItem)=> {
+      if(item.id !== event.id) {
+        return item;
+      }
+
+      return event;
     });
+    this.saveList(newList);
   }
 
   public remove(event: EventItem) {
-    this.list$.pipe(take(1)).subscribe((list: EventItem[])=> {
-      const newList = list.filter((item: EventItem)=> item.id !== event.id) ?? [];
-      this.saveList(newList);
-    });
+    const newList = this.listSubject.value.filter((item: EventItem)=> item.id !== event.id) ?? [];
+    this.saveList(newList);
   }
 
   private saveList(list: EventItem[]) {
@@ -39,7 +45,7 @@ export class StorageService {
     this.listSubject.next(list);
   }
 
-  private retrieveList(): EventItem[] {
+  private getLocalList(): EventItem[] {
     return JSON.parse(localStorage.getItem("event-list") as string) ?? [];
   }
 }

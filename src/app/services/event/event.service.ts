@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { EventItem } from "../../models/event-item.interface";
-import { DateService } from "../date/date.service";
 import { StorageService } from "../storage/storage.service";
 
 @Injectable({
@@ -13,17 +12,16 @@ export class EventService {
   public pastEventList$: Observable<EventItem[]>;
 
   constructor(
-    private _dateSrv: DateService,
     private _storageSrv: StorageService
   ) {
     this.upcomingEventList$ = this._storageSrv.list$.pipe(
       map((eventList: EventItem[]) =>
-        eventList.filter((event: EventItem)=> !this.isBeforeToday(event))
+        eventList.filter((event: EventItem)=> this.isAfterToday(event))
       )
     );
     this.pastEventList$ = this._storageSrv.list$.pipe(
       map((eventList: EventItem[]) =>
-        eventList.filter((event: EventItem)=> this.isBeforeToday(event))
+        eventList.filter((event: EventItem)=> !this.isAfterToday(event))
       )
     );
   }
@@ -34,11 +32,10 @@ export class EventService {
     );
   }
 
-  public isBeforeToday(event: EventItem): boolean {
-    const parsedToday = this._dateSrv.today;
-    const currentDate = new Date(parsedToday.year(), parseInt(parsedToday.month(), 10), parseInt(parsedToday.day(), 10));
-    const parsedDate = this._dateSrv.parseDate(event.date);
-    const eventDate = new Date(parseInt(parsedDate.year, 10), parseInt(parsedDate.month, 10), parseInt(parsedDate.day, 10));
-    return eventDate < currentDate;
+  public isAfterToday(event: EventItem): boolean {
+    const todayWithoutTime = new Date(Date.now()).toISOString().split("T")[0];
+    const currentDate = new Date(todayWithoutTime);
+    const eventDate = new Date(event.date);
+    return eventDate >= currentDate;
   }
 }
