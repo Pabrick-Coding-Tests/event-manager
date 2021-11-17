@@ -1,1 +1,11 @@
+:root {
+  --colour-primary: #EAEAEA;
+  --colour-secondary: #CBC5EA;
+  --colour-tertiary: #73628A;
+  --colour-quaternary: #313D5A;
+  --colour-quintuary: #183642;
+}
 
+body {
+  background-color: var(--colour-primary);
+}
