@@ -1,42 +1,42 @@
 <section class="page-form">
-  <h2 class="page-form__title">
-    <ng-container [ngTemplateOutlet]="(eventSelected$ | async) ? titleUpdate : titleCreate">
-      <ng-template #titleUpdate>✏️ Update event</ng-template>
-      <ng-template #titleCreate>✨ Create new event</ng-template>
-    </ng-container>
-  </h2>
+
+  <section class="page-form__header">
+    <button (click)="back()">
+      <div class="back">
+        <span class="back__cta">Back to my event</span>
+        <span class="back__icon"></span>
+      </div>
+    </button>
+  </section>
 
   <section class="page-form__body">
     <form *ngIf="eventForm$ | async as eventForm"
           class="event-form"
           novalidate
           [formGroup]="eventForm"
-          (ngSubmit)="onCreate(eventForm)">
+          (ngSubmit)="isUpdate ? onUpdate(eventForm) : onCreate(eventForm)">
           <div class="event-form__row">
-            <label>Title:</label>
+            <label>Title</label>
             <input formControlName="title"
-                   placeholder="">
+                   placeholder="Documentation"
+                   [ngClass]="{'error': isInvalid(eventForm, 'title') }">
           </div>
           <div class="event-form__row">
-            <label>Description:</label>
+            <label>Description</label>
             <input formControlName="description"
-                   placeholder="">
+                   placeholder="Write steps..."
+                   [ngClass]="{'error': isInvalid(eventForm, 'description') }">
           </div>
           <div class="event-form__row">
-            <label>Date:</label>
-            <div class="date-picker">
-              <input formControlName="day" placeholder="dd" maxlength="2" size="2">
-              <input formControlName="month" placeholder="mm" maxlength="2" size="2">
-              <input formControlName="year" placeholder="yyyy" maxlength="4" size="4">
-            </div>
+            <label>Date</label>
+            <input formControlName="date"
+                   placeholder="YYYY-MM-DD"
+                   [ngClass]="{'error': isInvalid(eventForm, 'date') }">
           </div>
-      <button type="submit">Create</button>
+      <button type="submit"
+              [disabled]="eventForm.invalid">
+        {{ (eventSelected$ | async) ? 'Update' : 'Create' }}
+      </button>
     </form>
-  </section>
-
-  <section class="page-form__footer">
-    <button (click)="back()">
-      📒 Back to list
-    </button>
   </section>
 </section>
