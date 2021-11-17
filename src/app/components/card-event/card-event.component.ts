@@ -16,10 +16,10 @@ export class CardEventComponent implements OnInit {
   public month?: string;
 
   ngOnInit(): void {
-    const splittedDate = this.item.date.split("/");
-    const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    const splittedDate = this.item.date.split("-");
+    const monthNames = ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
     const monthNumber = parseInt(splittedDate[1], 10);
-    this.day = splittedDate[0];
+    this.day = splittedDate[2];
     this.month = monthNames[monthNumber];
   }
 
