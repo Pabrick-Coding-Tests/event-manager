@@ -1,13 +1,23 @@
 <section class="page-list">
-  <h2 class="page-list__title">📒 Event list</h2>
+  <h2 class="page-list__title">My events</h2>
 
   <button class="page-list__create"
           (click)="createNewEvent()">
-    ✨ Create new event
+    <div class="create">
+      <span class="create__icon">+</span>
+      <span class="create__cta">Create new event</span>
+    </div>
   </button>
 
   <section class="upcoming-events">
     <h3 class="upcoming-events__title">Upcoming events</h3>
+
+    <ng-container *ngIf="(upcomingEventList$ | async) as upcomingEventList">
+      <div *ngIf="!upcomingEventList.length" class="no-events">
+       No events to show
+      </div>
+    </ng-container>
+
     <ul class="upcoming-events__list">
       <li *ngFor="let event of upcomingEventList$ | async">
         <card-event [item]="event"
@@ -19,10 +29,15 @@
     </ul>
   </section>
 
-  <hr>
-
   <section class="past-events">
     <h3 class="past-events__title">Past events</h3>
+
+    <ng-container *ngIf="(pastEventList$ | async) as pastEventList">
+      <div *ngIf="!pastEventList.length" class="no-events">
+       No events to show
+      </div>
+    </ng-container>
+
     <ul class="past-events__list">
       <li *ngFor="let event of pastEventList$ | async">
         <card-event [item]="event"

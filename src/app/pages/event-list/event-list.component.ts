@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { map, Observable } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { StorageService } from "../../services/storage/storage.service";
 import { EventItem } from "../../models/event-item.interface";
 import { EventService } from "../../services/event/event.service";
@@ -36,13 +36,12 @@ export class EventListComponent implements OnInit {
   }
 
   public onUpdateEvent(event: EventItem): void {
-    console.log("onUpdateEvent", event);
     this.router.navigate(["./form"], { queryParams: { "id": event.id }});
   }
 
   public onDeleteEvent(event: EventItem): void {
-    console.log("onDeleteEvent", event);
     this._storageSrv.remove(event);
+    this.router.navigate(["./list"]);
   }
 
 }
