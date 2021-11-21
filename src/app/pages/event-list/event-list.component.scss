@@ -33,6 +33,11 @@
         font-size: 3rem;
         margin: 0 0.75rem;
         transition: all 0.2s linear;
+        @-moz-document url-prefix() {
+          position: relative;
+          top: -0.25rem;
+          left: -0.25rem;
+        }
       }
 
       &__cta {
@@ -48,6 +53,11 @@
       .create {
         &__icon {
           transform: rotate(-90deg);
+          @-moz-document url-prefix() {
+            position: relative;
+            top: 0;
+            left: 0;
+          }
         }
         &__cta {
           margin-left: 0;
