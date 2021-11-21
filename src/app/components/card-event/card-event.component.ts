@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { EventItem } from "./../../models/event-item.interface";
+import { MONTH_NAMES } from "./utils/month-names.const";
 
 @Component({
   selector: "card-event",
@@ -16,11 +17,10 @@ export class CardEventComponent implements OnInit {
   public month?: string;
 
   ngOnInit(): void {
-    const splittedDate = this.item.date.split("-");
-    const monthNames = ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
-    const monthNumber = parseInt(splittedDate[1], 10);
-    this.day = splittedDate[2];
-    this.month = monthNames[monthNumber];
+    const splittedDate = this.item?.date.split("-");
+    const monthNumber = splittedDate ? parseInt(splittedDate[1], 10) : 0;
+    this.day = splittedDate ? splittedDate[2] : "XX";
+    this.month = MONTH_NAMES[monthNumber];
   }
 
   public updateItem(): void {

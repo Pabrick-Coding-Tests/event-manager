@@ -1,21 +1,27 @@
-<details class="card" [open]="opened">
+<details *ngIf="item"
+         class="card"
+         id="card" [open]="opened">
   <summary class="title">
-    <div class="title__month">{{ month }}</div>
-    <div class="title__day">{{ day }}</div>
-    <div class="title__text">{{ item.title }}</div>
+    <div class="title__month" id="date-month">{{ month }}</div>
+    <div class="title__day" id="date-day">{{ day }}</div>
+    <div class="title__text" id="title">{{ item.title }}</div>
     <div class="title__marker"></div>
   </summary>
   <section class="body">
-    <p>
+    <p class="description" id="description">
       {{ item.description }}
     </p>
-    <p>
-      <span>The weather will be </span>
-      <span>{{ item.weatherIcon }}</span>
+    <p class="weather">
+      <span class="weather__text">The weather will be </span>
+      <span class="weather__icon" id="weather">{{ item.weatherIcon }}</span>
     </p>
     <div class="footer">
-      <button (click)="updateItem()">✎ Update event</button>
-      <button (click)="deleteItem()">✖ Delete event</button>
+      <button class="footer__update"
+              id="btn-update"
+              (click)="updateItem()">✎ Update event</button>
+      <button class="footer__delete"
+              id="btn-delete"
+              (click)="deleteItem()">✖ Delete event</button>
     </div>
   </section>
 </details>
