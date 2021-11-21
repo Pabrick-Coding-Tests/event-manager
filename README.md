@@ -1,27 +1,49 @@
 # EventManager
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.2.
+# The task:
+Write a simple single-page app for event administration (feel free to use any javascript/typescript framework you see fit if it helps you). The app should have a list of upcoming and past events and a form for creating a new event. When a user selects an event on the list, details of the event should appear somewhere.
 
-## Development server
+The point of this is to demonstrate your programming habits and show styling (CSS) skills.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Moreover, if you decide to use a framework or library (or not to use any), please give a brief explanation of why.
 
-## Code scaffolding
+Bonus: you can add to the event also weather information. You can use data from here: https://api.met.no/weatherapi/locationforecast/2.0/ or from another public weather service.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Approach
 
-## Build
+The task will be to create a CRUD SPA able to manage events.
+To achieve this I will use a javascript framework to make the handling of views and components easier.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Angular is the framework where I feel more confortable and the use of TypeScript is a plus (I know React can be used now with TypeScript, but this wasn't the case when Angular 2 appeared 😊).
 
-## Running unit tests
+Before starting it would be good to list the features I want for this MPV:
+- Good arquitecture.
+- Routing between pages and deeplinking.
+- Database (localStorage in this case, to simplify).
+- Usage of the API provided.
+- Reactive forms and data validation.
+- Testing.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Plus some features that from my point of view will add value to the project:
+- Responsiveness (Mobile first approach).
+- Crossbrowsing.
+- Semantic HTML.
 
-## Running end-to-end tests
+Due to the time limitation and the size of the project some other features will be dropped off as "Nice to haves".
+- Better formulary (custom date picker, or event 3rd party).
+- Style guide.
+- More testing coverage.
+- Accesibility (a11y).
+- Localization (i18n).
+- Analytics.
+- Lint.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+After drawing some diagrams to plan how the app will look like, we are ready!
 
-## Further help
+# Commands the app
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Start: `ng start`
+- Test: `ng test`
+
+# Thanks!
+Pablo.
