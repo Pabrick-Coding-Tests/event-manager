@@ -2,6 +2,7 @@
   <h2 class="page-list__title">My events</h2>
 
   <button class="page-list__create"
+          id="btn-create"
           (click)="createNewEvent()">
     <div class="create">
       <span class="create__icon">+</span>
@@ -9,7 +10,7 @@
     </div>
   </button>
 
-  <section class="upcoming-events">
+  <section class="upcoming-events" id="upcoming-events">
     <h3 class="upcoming-events__title">Upcoming events</h3>
 
     <ng-container *ngIf="(upcomingEventList$ | async) as upcomingEventList">
@@ -20,7 +21,8 @@
 
     <ul class="upcoming-events__list">
       <li *ngFor="let event of upcomingEventList$ | async">
-        <card-event [item]="event"
+        <card-event [id]="event.id"
+                    [item]="event"
                     [opened]="event.id === (eventIdSelected$ | async)"
                     (updateEmt)="onUpdateEvent(event)"
                     (deleteEmt)="onDeleteEvent(event)">
@@ -29,7 +31,7 @@
     </ul>
   </section>
 
-  <section class="past-events">
+  <section class="past-events" id="past-events">
     <h3 class="past-events__title">Past events</h3>
 
     <ng-container *ngIf="(pastEventList$ | async) as pastEventList">
@@ -40,7 +42,8 @@
 
     <ul class="past-events__list">
       <li *ngFor="let event of pastEventList$ | async">
-        <card-event [item]="event"
+        <card-event [id]="event.id"
+                    [item]="event"
                     [opened]="event.id === (eventIdSelected$ | async)"
                     (updateEmt)="onUpdateEvent(event)"
                     (deleteEmt)="onDeleteEvent(event)">
