@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { combineLatest, map, Observable, switchMap, take, tap } from "rxjs";
+import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { combineLatest, map, Observable, switchMap, take, tap, throwError } from "rxjs";
 import { StorageService } from "../../services/storage/storage.service";
 import { EventService } from "../../services/event/event.service";
 import { EventItem } from "../../models/event-item.interface";
@@ -14,10 +14,10 @@ import { WeatherService } from "../../services/weather/weather.service";
 })
 export class EventFormComponent implements OnInit {
 
+  public eventIdSelected$: Observable<string>;
   public eventSelected$: Observable<EventItem>;
   public eventForm$: Observable<FormGroup>;
   public isUpdate: boolean;
-  public datePattern = "(\d{4}-\d{1,12}-\d{2})";
 
   constructor(
     public readonly route: ActivatedRoute,
@@ -28,8 +28,12 @@ export class EventFormComponent implements OnInit {
     private readonly _weatherSrv: WeatherService,
   ) {
     this.isUpdate = false;
-    this.eventSelected$ = this.route.queryParams.pipe(
-      map((params: Params) => params["id"]),
+
+    this.eventIdSelected$ = this.route.queryParams.pipe(
+      map((params: Params) => params["id"])
+    );
+
+    this.eventSelected$ = this.eventIdSelected$.pipe(
       map((idSelected: string) => idSelected),
       switchMap((idSelected: string) => this._eventSrv.getEvent$(idSelected)),
       tap((idSelected) => {
@@ -49,7 +53,7 @@ export class EventFormComponent implements OnInit {
         return this._formBuilder.group({
           title: [formGroup.title, Validators.required],
           description: [formGroup.description, Validators.required],
-          date: [formGroup.date, Validators.required]
+          date: [formGroup.date, [Validators.required, this.ValidateDate]]
         });
       })
     );
@@ -73,7 +77,7 @@ export class EventFormComponent implements OnInit {
           id: Date.now().toString(),
           title: form.value.title,
           description: form.value.description,
-          date: form.value.date,
+          date: this.formatDate(form.value.date),
           weatherIcon: weatherIcon
         };
         this._storageSrv.add(newEvent);
@@ -98,5 +102,20 @@ export class EventFormComponent implements OnInit {
         this._storageSrv.update(newEvent);
         this.router.navigate(["./list"], { queryParams: { "id": newEvent.id }});
       });
+  }
+
+  private formatDate(date: string) {
+    return new Date(date).toISOString().split("T")[0];
+  }
+
+  private ValidateDate(control: AbstractControl) {
+    const datePattern = /^\d{4}-\d{1,2}-\d{1,2}$/;
+    const isValidDate = new Date(control.value).toString() !== "Invalid Date";
+    if(!new RegExp(datePattern).test(control.value) || !isValidDate) {
+      return {
+        inValidDate: true
+      };
+    }
+    return null;
   }
 }

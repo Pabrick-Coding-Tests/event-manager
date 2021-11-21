@@ -1,9 +1,10 @@
 <section class="page-form">
 
   <section class="page-form__header">
-    <button (click)="back()">
+    <button id="btn-back"
+            (click)="back()">
       <div class="back">
-        <span class="back__cta">Back to my event</span>
+        <span class="back__cta">Back to my events</span>
         <span class="back__icon"></span>
       </div>
     </button>
@@ -12,28 +13,33 @@
   <section class="page-form__body">
     <form *ngIf="eventForm$ | async as eventForm"
           class="event-form"
+          id="form"
           novalidate
           [formGroup]="eventForm"
           (ngSubmit)="isUpdate ? onUpdate(eventForm) : onCreate(eventForm)">
           <div class="event-form__row">
             <label>Title</label>
-            <input formControlName="title"
-                   placeholder="Documentation"
+            <input id="form-title"
+                   formControlName="title"
+                   placeholder="Title"
                    [ngClass]="{'error': isInvalid(eventForm, 'title') }">
           </div>
           <div class="event-form__row">
             <label>Description</label>
-            <input formControlName="description"
-                   placeholder="Write steps..."
+            <input id="form-description"
+                   formControlName="description"
+                   placeholder="Description"
                    [ngClass]="{'error': isInvalid(eventForm, 'description') }">
           </div>
           <div class="event-form__row">
             <label>Date</label>
-            <input formControlName="date"
+            <input id="form-date"
+                   formControlName="date"
                    placeholder="YYYY-MM-DD"
                    [ngClass]="{'error': isInvalid(eventForm, 'date') }">
           </div>
       <button type="submit"
+              id="btn-submit"
               [disabled]="eventForm.invalid">
         {{ (eventSelected$ | async) ? 'Update' : 'Create' }}
       </button>
